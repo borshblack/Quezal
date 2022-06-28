@@ -6,6 +6,7 @@
     "@types/node": "^16.11.41",
     "@types/react": "^18.0.14",
     "@types/react-dom": "^18.0.5",
+    "eslint": "^8.18.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
@@ -13,7 +14,12 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build"
+    "build": "react-scripts build",
+    "lint": "npm run lint:tsc && npm run lint:eslint && npm run lint:prettier",
+    "lint:tsc": "tsc --noEmit",
+    "lint:eslint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint:prettier": "prettier --check .",
+    "fix:prettier": "prettier --write ."
   },
   "eslintConfig": {
     "extends": [
@@ -30,6 +36,35 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@trivago/prettier-plugin-sort-imports": "^3.2.0",
+    "@types/eslint": "^8.4.3",
+    "@types/eslint-plugin-prettier": "^3.1.0",
+    "@types/prettier": "^2.6.3",
+    "@typescript-eslint/eslint-plugin": "^5.30.0",
+    "@typescript-eslint/parser": "^5.30.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-import-resolver-typescript": "^3.1.1",
+    "eslint-plugin-jsx-a11y": "^6.6.0",
+    "eslint-plugin-prefer-arrow": "^1.2.3",
+    "eslint-plugin-prettier": "^4.1.0",
+    "eslint-plugin-react": "^7.30.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "husky": "^8.0.1",
+    "prettier": "^2.7.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{json,md,html,js,jsx,ts,tsx}": [
+      "prettier --write",
+      "npm run lint"
     ]
   }
 }
